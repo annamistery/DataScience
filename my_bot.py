@@ -48,15 +48,15 @@ async def image(update, context):
        os.makedirs('images')
        
     # достаем файл изображения из сообщения
-    photo = update.message.photo[-1]
-    file = await context.bot.get_file(photo.file_id)
-    file_id = photo.file_id
+    message_id = update.message.message_id
+    file = await context.bot.get_file(update.message.photo[-1].file_id)
+
     
     # сохраняем изображение на диск
-    download_path = f"images/{file_id}.jpg"  # Формируем путь с ID файла
+    download_path = f"images/{message_id}.jpg"  # Формируем путь с ID файла
     await file.download_to_drive(download_path)  # Скачиваем файл
     
-    await update.message.reply_text(f'Изображение c id: {file_id} получено!')
+    await update.message.reply_text(f'Изображение c id: {message_id} получено!')
     
     await update.message.reply_text(f"Файл сохранён в {download_path}")   
    
