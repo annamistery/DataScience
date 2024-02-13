@@ -8,7 +8,7 @@ import os
 load_dotenv()
 
 # загружаем токен бота
-TOKEN = os.environ.get("6985099633:AAFbwPpqA2KzW4qIz6Od0AigaQfPUCA-Z38")
+TOKEN = os.environ.get("TOKEN")
 
 
 # функция команды /start
@@ -64,7 +64,7 @@ async def image(update, context):
 def main():
 
     # точка входа в приложение
-    application = Application.builder().token("6985099633:AAFbwPpqA2KzW4qIz6Od0AigaQfPUCA-Z38").build()
+    application = Application.builder().token("TOKEN").build()
 
     print('Бот запущен...')
 
