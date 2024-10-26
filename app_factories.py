@@ -7,25 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1d7_jbwOrhMWg3PcvP0OE16kFwYM4U2dU
 """
 
-import gdown
-
-def _get_file_from_google_drive(url:str, name = None ) -> str:
-    try:
-        # Извлечение идентификатора файла из ссылки
-        file_id = url.split('/')[-2]
-        # Загрузка файла из Google Drive в Google Colab
-        output_file = gdown.download(f"https://drive.google.com/uc?id={file_id}", output=name, quiet=True)
-        # возвращает путь к файлу
-        return f'/content/{output_file}'
-    except Exception as e:
-        st.error(f"An error occurred while loading the image: {str(e)}")
-        return None
-
-
-if __name__ == '__main__':
-   _ = _get_file_from_google_drive(url='https://drive.google.com/file/d/1_5E6KRT9uJ6HVucNmK2y7gxfY-hv1bnr/view?usp=sharing')
-
-
 import subprocess
 
 subprocess.run(["pip", "install", "-r", "https://raw.githubusercontent.com/annamistery/DataScience/main/requirements.txt"])
