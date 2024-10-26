@@ -22,7 +22,10 @@ if __name__ == '__main__':
    _ = _get_file_from_google_drive(url='https://drive.google.com/file/d/1_5E6KRT9uJ6HVucNmK2y7gxfY-hv1bnr/view?usp=sharing')
 
 
-!pip install -r https://github.com/annamistery/DataScience/blob/main/requirements.txt
+import subprocess
+
+subprocess.run(["pip", "install", "-r", "https://raw.githubusercontent.com/annamistery/DataScience/main/requirements.txt"])
+
 
 
 import streamlit as st
