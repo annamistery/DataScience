@@ -318,17 +318,26 @@ st.session_state['order_details'] = order_details
 #for key, value in order_details.items():
     #st.write(f"{key}: {value}")
 # Ниже вашего кода, на верхнем уровне (без отступов) должен находиться импорт
-import importlib.util
+import requests
 import sys
+import importlib.util
 
 # URL of the data_pipeline_st module on GitHub
-module_url = "https://github.com/annamistery/DataScience/blob/main/data_pipeline_st.py"
+module_url = "https://raw.githubusercontent.com/annamistery/DataScience/main/data_pipeline_st.py"
 
-# Dynamically import the module from the URL
-spec = importlib.util.spec_from_loader("data_pipeline_st", importlib.util.url_importer(module_url))
+# Download the module code from the URL
+response = requests.get(module_url)
+module_code = response.text
+
+# Create a module specification and a module object
+spec = importlib.util.spec_from_loader("data_pipeline_st", loader=None)
 data_pipeline_st = importlib.util.module_from_spec(spec)
+
+# Add the module object to sys.modules so that it can be imported by other modules
 sys.modules["data_pipeline_st"] = data_pipeline_st
-spec.loader.exec_module(data_pipeline_st)
+
+# Execute the module code
+exec(module_code, data_pipeline_st.__dict__)
 
 # Now you can use the functions from the data_pipeline_st module
 def display_fabric_table(df_predictions):
@@ -344,6 +353,7 @@ if st.button('Обработать данные'):
         st.table(prediction)
     else:
         st.warning("Пожалуйста, сначала подтвердите детали заказа.")
+
 
 
 
