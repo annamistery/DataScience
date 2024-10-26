@@ -39,12 +39,11 @@ import pandas as pd
 st.title("Добро пожаловать на платформу LEGPROM!!!")
 st.header("Приложение по подбору фабрик")
 
-image = _get_file_from_google_drive(url= 'https://drive.google.com/file/d/1F-FDVN927l7RM4h71a4QzQVieNV4ywiP/view?usp=drive_link')
+image_url = 'https://github.com/annamistery/DataScience/blob/main/image_legprom.jpg'
 
-if image is not None:
-    st.image(image, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
-else:
-    st.warning("Image could not be loaded. Please check the URL or try again later.")
+# Display the image using the URL
+st.image(image_url, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
+
 st.subheader("Введите необходимые спецификации вашего заказа")
 
 # Selection fields
