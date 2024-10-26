@@ -318,39 +318,31 @@ st.session_state['order_details'] = order_details
 #for key, value in order_details.items():
     #st.write(f"{key}: {value}")
 # Ниже вашего кода, на верхнем уровне (без отступов) должен находиться импорт
-from data_pipeline_st import preprocessed_data, run_neural_network
+import importlib.util
+import sys
+
+# URL of the data_pipeline_st module on GitHub
+module_url = "https://github.com/annamistery/DataScience/blob/main/data_pipeline_st.py"
+
+# Dynamically import the module from the URL
+spec = importlib.util.spec_from_loader("data_pipeline_st", importlib.util.url_importer(module_url))
+data_pipeline_st = importlib.util.module_from_spec(spec)
+sys.modules["data_pipeline_st"] = data_pipeline_st
+spec.loader.exec_module(data_pipeline_st)
+
+# Now you can use the functions from the data_pipeline_st module
 def display_fabric_table(df_predictions):
     result_df = pd.DataFrame(df_predictions)
-    # Предполагаем, что в df_predictions уже есть все нужные столбцы, включая 'Степень соответствия'
     st.table(result_df)
 
 if st.button('Обработать данные'):
     if 'order_details' in st.session_state:
-        # Используем сохраненные данные для обработки
-        result_input, result_add = preprocessed_data(st.session_state['order_details'])
-
-        #st.write("Результат предобработки для входа в модель:", result_input, result_add)
-
-        # Перед вызовом модели
-        #st.write (f"Входные данные для модели: {result_input}")
-
-        #st.write (f"Входные данные для добавления к выходному результату: {result_add}")
-        # Выполняем обработку данных и получение предсказания модели
-        prediction = run_neural_network(result_input, result_add)
-
-        # Сохраняем результаты предсказания для использования в дальнейшем
+        result_input, result_add = data_pipeline_st.preprocessed_data(st.session_state['order_details'])
+        prediction = data_pipeline_st.run_neural_network(result_input, result_add)
         st.session_state['prediction'] = prediction
-
-        # Выводим результат обработки данных и результат предсказания в виде таблицы
         st.write("Результат обработки данных:")
-
-        # Выводим данные в Streamlit
         st.table(prediction)
-
-
-        #display_fabric_table(prediction)  # Передаем прямо список словарей
     else:
-        # Выводим предупреждение, что заказ еще не подтвержден
         st.warning("Пожалуйста, сначала подтвердите детали заказа.")
 
 
