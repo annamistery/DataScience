@@ -10,12 +10,16 @@ Original file is located at
 import gdown
 
 def _get_file_from_google_drive(url:str, name = None ) -> str:
-    # Извлечение идентификатора файла из ссылки
-    file_id = url.split('/')[-2]
-    # Загрузка файла из Google Drive в Google Colab
-    output_file = gdown.download(f"https://drive.google.com/uc?id={file_id}", output=name, quiet=True)
-    # возвращает путь к файлу
-    return f'/content/{output_file}'
+    try:
+        # Извлечение идентификатора файла из ссылки
+        file_id = url.split('/')[-2]
+        # Загрузка файла из Google Drive в Google Colab
+        output_file = gdown.download(f"https://drive.google.com/uc?id={file_id}", output=name, quiet=True)
+        # возвращает путь к файлу
+        return f'/content/{output_file}'
+    except Exception as e:
+        st.error(f"An error occurred while loading the image: {str(e)}")
+        return None
 
 
 if __name__ == '__main__':
@@ -34,8 +38,13 @@ import pandas as pd
 #st.markdown('Добро пожаловать на платформу LEGPROM!')
 st.title("Добро пожаловать на платформу LEGPROM!!!")
 st.header("Приложение по подбору фабрик")
+
 image = _get_file_from_google_drive(url= 'https://drive.google.com/file/d/1F-FDVN927l7RM4h71a4QzQVieNV4ywiP/view?usp=drive_link')
-st.image(image, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
+
+if image is not None:
+    st.image(image, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
+else:
+    st.warning("Image could not be loaded. Please check the URL or try again later.")
 st.subheader("Введите необходимые спецификации вашего заказа")
 
 # Selection fields
