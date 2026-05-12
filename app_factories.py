@@ -23,7 +23,7 @@ st.header("Приложение по подбору фабрик")
 image_url = 'https://github.com/annamistery/DataScience/blob/main/image_legprom.jpg'
 
 # Display the image using the URL
-st.image(image_url, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
+st.image(image_url, caption=None, width=None, use_container_width=True, clamp=False, channels="RGB", output_format="auto")
 
 st.subheader("Введите необходимые спецификации вашего заказа")
 
