@@ -86,10 +86,10 @@ def _get_file_from_google_drive(url:str, name = None ) -> str:  #скрипт с
     # Загрузка файла из Google Drive в Google Colab
     output_file = gdown.download(f"https://drive.google.com/uc?id={file_id}", output=name, quiet=True)
     # возвращает путь к файлу
-    return f'/content/{output_file}
+    return f'/content/{output_file}'
 
 
-def run_neural_network(input_data, add_data,topon = 10) #model = 'model_best_120_23_05.keras', 
+def run_neural_network(input_data, add_data,topon = 10): #model = 'model_best_120_23_05.keras', 
                     #tokenizer = 'tokenizer_final.pickle', max_length=162, 
                     #table_for_predict = 'fabrics_st.xlsx', ):
     """ Функция обрабатывает запрос и выдаёт перечень фабрик наиболее релевантных под указанные спецификации.
